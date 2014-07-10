@@ -151,6 +151,11 @@ func main() {
 	}
 	handlers := wmf.NewHandler(config, logger, metrics)
 
+	if handlers == nil {
+		// Die immediately if there are no handlers
+		return
+	}
+
 	// Signal handler
 	sigChan := make(chan os.Signal)
 	signal.Notify(sigChan, syscall.SIGINT, syscall.SIGHUP, syscall.SIGUSR1)
